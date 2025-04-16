@@ -17,6 +17,14 @@ spring:
   config:
     import: configserver:http://localhost:9296
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-56652480.okta.com/oauth2/default
+          authorities-claim-name: groups
+          authority-prefix: ROLE_
+
 
 
 #eureka:
