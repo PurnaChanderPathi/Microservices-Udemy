@@ -17,7 +17,7 @@ spring:
             - name: CircuitBreaker
               args:
                 name: ORDER-SERVICE
-                fallbackuri: forward:/orderServiceFallBack
+                fallbackuri: forward:/orderServiceFallback
 #            - name: RequestRateLimiter
 #              args:
 #                redis-rate-limiter.replenishRate: 1

@@ -18,14 +18,14 @@ public class ProductController {
         this.productService = productService;
     }
 
-//    @PreAuthorize("hasAuthority('Admin')")
+//    @PreAuthorize("hasRole('Admin')")
     @PostMapping
-    public ResponseEntity<Long> addProduct(@RequestBody ProductRequest productRequest){
+    public ResponseEntity<Long> addProduct(@RequestBody ProductRequest productRequest) {
         long productId = productService.addProduct(productRequest);
         return new ResponseEntity<>(productId, HttpStatus.CREATED);
     }
 
-//    @PreAuthorize("hasAuthority('Admin') or hasAuthority('Customer') or hasAuthority('SCOPE_internal')")
+//    @PreAuthorize("hasRole('Admin') or hasRole('Customer')")
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> getProductById(@PathVariable("id") long productId) {
         ProductResponse productResponse = productService.getProductById(productId);
