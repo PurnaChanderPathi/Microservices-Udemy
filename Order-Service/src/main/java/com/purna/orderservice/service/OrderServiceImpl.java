@@ -11,10 +11,9 @@ import com.purna.orderservice.model.OrderResponse;
 import com.purna.orderservice.model.ProductResponse;
 import com.purna.orderservice.repository.OrderRepository;
 import lombok.extern.log4j.Log4j2;
-import org.slf4j.helpers.Util;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import java.time.Instant;
 
 @Service
@@ -29,12 +28,14 @@ public class OrderServiceImpl implements OrderService{
 
     private final RestTemplate restTemplate;
 
+
     public OrderServiceImpl(OrderRepository orderRepository, ProductService productService, PaymentService paymentService, RestTemplate restTemplate) {
         this.orderRepository = orderRepository;
         this.productService = productService;
         this.paymentService = paymentService;
         this.restTemplate = restTemplate;
     }
+
 
     @Override
     public long placeOrder(OrderRequest orderRequest) {
@@ -107,7 +108,6 @@ public class OrderServiceImpl implements OrderService{
                 .paymentDate(paymentResponse.getPaymentDate())
                 .paymentStatus(paymentResponse.getStatus())
                 .build();
-
 
         return OrderResponse.builder()
                 .orderId(order.getId())
