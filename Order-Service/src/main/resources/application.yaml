@@ -3,12 +3,12 @@ server:
 
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    password: Purna@123
-    url: jdbc:mysql://${DB_HOST:localhost}:3306/orderdb
-    username: PurnaChander
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:orderdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
   jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
     show-sql: true
@@ -16,6 +16,10 @@ spring:
     name: ORDER-SERVICE
   config:
     import: configserver:http://localhost:9296
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
   security:
     oauth2:
       resourceserver:
@@ -34,7 +38,6 @@ spring:
         provider:
           okta:
             issuer-uri: https://dev-56652480.okta.com/oauth2/default
-
 
 resilience4j:
   circuitbreaker:
