@@ -3,41 +3,34 @@ server:
 
 spring:
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:orderdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    username: sa
-    password:
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/orderdb
+    username: PurnaChander
+    password: Purna@123
+    driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
     hibernate:
       ddl-auto: update
-    show-sql: true
   application:
     name: ORDER-SERVICE
   config:
-    import: configserver:http://localhost:9296
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+    import: configserver:${CONFIG_SERVER_URL:http://localhost:9296}
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://dev-56652480.okta.com/oauth2/default
-          authorities-claim-name: groups
-          authority-prefix: ROLE_
+          issuer-uri: https://dev-15585796.okta.com/oauth2/default
       client:
         registration:
           internal-client:
             provider: okta
             authorization-grant-type: client_credentials
             scope: internal
-            client-id: 0oao8oka7yWSZDICU5d7
-            client-secret: nLttFyc1-UMRhuW4hwjqXDacoLwxdqxPihr16zqg8046B_qqd7S0waNEUof9HVHg
+            client-id: 0oa6cgklvwIS2SoFZ5d7
+            client-secret: L_VPQB5XQX5QAhnxaDqA0IhWG-TImnVpaHW7ER33
         provider:
           okta:
-            issuer-uri: https://dev-56652480.okta.com/oauth2/default
+            issuer-uri: https://dev-15585796.okta.com/oauth2/default
 
 resilience4j:
   circuitbreaker:
@@ -46,7 +39,7 @@ resilience4j:
         event-consumer-buffer-size: 10
         failure-rate-threshold: 50
         minimum-number-of-calls: 5
-        automatic-transition-form-open-to-half-open-enabled: true
+        automatic-transition-from-open-to-half-open-enabled: true
         wait-duration-in-open-state: 5s
         permitted-number-of-calls-in-half-open-state: 3
         sliding-window-size: 10

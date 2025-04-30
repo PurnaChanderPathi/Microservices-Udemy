@@ -1,67 +1,18 @@
+server:
+  port: 8080
+
 spring:
   datasource:
-    url: jdbc:h2:mem:productdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/productdb
+    username: PurnaChander
+    password: Purna@123
+    driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
     hibernate:
       ddl-auto: update
-    show-sql: true
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-
   application:
     name: PRODUCT-SERVICE
   config:
-    import: configserver:http://${CONFIG_SERVER_URL:localhost}:9296
+    import: configserver:${CONFIG_SERVER_URL:http://localhost:9296}
 
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: https://dev-56652480.okta.com/oauth2/default
-          authorities-claim-name: groups
-          authority-prefix: ROLE_
-
-
-server:
-  port: 8080
-#
-#spring:
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    password: Purna@123
-#    url: jdbc:mysql://${DB_HOST:localhost}:3306/productdb
-#    username: PurnaChander
-#  jpa:
-#    database-platform: org.hibernate.dialect.MySQLDialect
-#    hibernate:
-#      ddl-auto: update
-#    show-sql: true
-#  application:
-#    name: PRODUCT-SERVICE
-#  config:
-#    import: configserver:http://${CONFIG_SERVER_URL:localhost}:9296
-#
-#  security:
-#    oauth2:
-#      resourceserver:
-#        jwt:
-#          issuer-uri: https://dev-56652480.okta.com/oauth2/default
-#          authorities-claim-name: groups
-#          authority-prefix: ROLE_
-#
-#
-#
-##eureka:
-##  instance:
-##    prefer-ip-address: true
-##  client:
-##    register-with-eureka: true
-##    fetch-registry: true
-##    service-url:
-##      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}
