@@ -4,11 +4,11 @@ server:
 spring:
   datasource:
     url: jdbc:mysql://${DB_HOST:localhost}:3306/orderdb
-    username: PurnaChander
-    password: Purna@123
+    username: root
+    password: Root@1234
     driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
-    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
   application:
