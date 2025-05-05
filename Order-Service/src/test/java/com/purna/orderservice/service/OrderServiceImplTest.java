@@ -22,6 +22,7 @@
 //
 //import java.time.Instant;
 //import java.util.Optional;
+//import org.springframework.beans.factory.annotation.Value;
 //
 //@SpringBootTest
 //public class OrderServiceImplTest {
@@ -40,6 +41,26 @@
 //
 //    @InjectMocks
 //    private OrderServiceImpl orderService;
+
+
+
+//@Value("${microservices.product}")
+//private String productServiceUrl;
+//
+//@Value("${microservices.payment}")
+//private String paymentServiceUrl;
+// change the serviceregistry names by adding these urls in it by reference of main java external client methods
+
+import org.junit.jupiter.api.BeforeEach;
+import org.springframework.test.util.ReflectionTestUtils;
+
+//@BeforeEach
+//public void setup(){
+//    ReflectionTestUtils
+//            .setField(orderService, "productServiceUrl",productServiceUrl);
+//    ReflectionTestUtils
+//            .setField(orderService, "paymentServiceUrl",paymentServiceUrl);
+//}
 //
 //    @DisplayName("Get Order - Success Scenario")
 //    @Test

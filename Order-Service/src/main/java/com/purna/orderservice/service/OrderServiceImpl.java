@@ -12,6 +12,7 @@ import com.purna.orderservice.model.ProductResponse;
 import com.purna.orderservice.repository.OrderRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import java.time.Instant;
@@ -27,6 +28,12 @@ public class OrderServiceImpl implements OrderService{
     private final PaymentService paymentService;
 
     private final RestTemplate restTemplate;
+
+    @Value("${microservices.product}")
+    private String productServiceUrl;
+
+    @Value("${microservices.payment}")
+    private String paymentServiceUrl;
 
 
     public OrderServiceImpl(OrderRepository orderRepository, ProductService productService, PaymentService paymentService, RestTemplate restTemplate) {
@@ -85,9 +92,12 @@ public class OrderServiceImpl implements OrderService{
         Order order = orderRepository.findById(orderId).orElseThrow(() -> new CustomException("Order not found with orderId : "+orderId,"NOT_FOUND",404));
         log.info("Invoking Product service to fetch the product for id : {}",order.getProductId());
 
+//        ProductResponse productResponse = restTemplate.getForObject(
+//                "http://PRODUCT-SERVICE/product/"+order.getProductId(),
+//                    ProductResponse.class);
         ProductResponse productResponse = restTemplate.getForObject(
-                "http://PRODUCT-SERVICE/product/"+order.getProductId(),
-                    ProductResponse.class);
+                productServiceUrl + order.getProductId(),
+                ProductResponse.class);
 
         OrderResponse.ProductDetails productDetails = OrderResponse.ProductDetails.builder()
                 .productName(productResponse.getProductName())
@@ -98,8 +108,12 @@ public class OrderServiceImpl implements OrderService{
 
         log.info("Getting Payment Information from payment service with orderId : {}",order.getId());
 
+//        PaymentResponse paymentResponse = restTemplate.getForObject(
+//                "http://PAYMENT-SERVICE/payment/"+order.getId(),
+//                PaymentResponse.class);
+
         PaymentResponse paymentResponse = restTemplate.getForObject(
-                "http://PAYMENT-SERVICE/payment/"+order.getId(),
+                paymentServiceUrl + "order/"+ order.getId(),
                 PaymentResponse.class);
 
         OrderResponse.PaymentDetails paymentDetails = OrderResponse.PaymentDetails.builder()

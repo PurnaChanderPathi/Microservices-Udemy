@@ -30,6 +30,10 @@ spring:
           authorities-claim-name: groups
           authority-prefix: ROLE_
 
+microservices:
+  product: http://product-service-svc/product/
+  payment: http://payment-service-svc/payment/
+
 #
 #spring:
 #  datasource:

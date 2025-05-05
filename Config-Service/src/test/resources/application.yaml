@@ -10,12 +10,3 @@ spring:
         git:
           uri: https://github.com/PurnaChanderPathi/spring-app-config.git
           clone-on-start: true
-
-#eureka:
-#  instance:
-#    prefer-ip-address: true
-#  client:
-#    register-with-eureka: true
-#    fetch-registry: true
-#    service-url:
-#      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}

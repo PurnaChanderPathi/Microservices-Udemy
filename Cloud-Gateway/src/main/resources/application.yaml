@@ -13,7 +13,7 @@ spring:
     gateway:
       routes:
         - id: ORDER-SERVICE
-          uri: lb://ORDER-SERVICE
+          uri: http://order-service-svc
           predicates:
             - Path=/order/**
           filters:
@@ -26,7 +26,7 @@ spring:
                 redis-rate-limiter.replenishRate: 1
                 redis-rate-limiter.burstCapacity: 1
         - id: PRODUCT-SERVICE
-          uri: lb://PRODUCT-SERVICE
+          uri: http://product-service-svc
           predicates:
             - Path=/product/**
           filters:
@@ -39,7 +39,7 @@ spring:
                 redis-rate-limiter.replenishRate: 1
                 redis-rate-limiter.burstCapacity: 1
         - id: PAYMENT-SERVICE
-          uri: lb://PAYMENT-SERVICE
+          uri: http://payment-service-svc
           predicates:
             - Path=/payment/**
           filters:
@@ -56,6 +56,7 @@ okta:
   oauth2:
     issuer: https://dev-56652480.okta.com/oauth2/default
     audience: api://default
+
     client-id: 0oao8oka7yWSZDICU5d7
     client-secret: nLttFyc1-UMRhuW4hwjqXDacoLwxdqxPihr16zqg8046B_qqd7S0waNEUof9HVHg
     scopes: openid, profile, email, offline_access
